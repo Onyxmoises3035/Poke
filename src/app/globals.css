@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.normal {
+  @apply bg-gray-500
+}
+
+.fighting {
+  @apply bg-orange-500
+}
+
+.flying {
+  @apply bg-sky-500
+}
+
+.poison {
+  @apply bg-purple-500
+}
+
+.ground {
+  @apply bg-amber-900
+}
+
+.rock {
+  @apply bg-orange-300
+}
+
+.bug {
+  @apply bg-lime-600
+}
+
+.ghost {
+  @apply bg-purple-900
+}
+
+.steel {
+  @apply bg-slate-600
+}
+
+.fire {
+  @apply bg-red-700
+}
+
+.water {
+  @apply bg-blue-500
+}
+
+.grass {
+  @apply bg-green-600
+}
+
+.electric {
+  @apply bg-yellow-400
+}
+
+.psychic {
+  @apply bg-pink-400
+}
+
+.ice {
+  @apply bg-blue-300
+}
+
+.dragon {
+  @apply bg-indigo-600
+}
+
+.dark {
+  @apply bg-stone-700
+}
+
+.fairy {
+  @apply bg-pink-300
+}
+
+.stellar {
+  @apply bg-gradient-to-r from-lime-600 via-sky-700 to-violet-700
+}
+
+.unknown {
+  @apply bg-white
+}
