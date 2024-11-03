@@ -99,3 +99,7 @@ body {
 .unknown {
   @apply bg-white
 }
+
+.genButton{
+  @apply m-1 bg-slate-600 rounded-full p-2 text-white
+}
