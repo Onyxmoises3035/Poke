@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const Card = ({ poke }) => {
 
@@ -11,9 +12,19 @@ const Card = ({ poke }) => {
     } else if (pokeId.length === 3) {
         pokeId = '0' + pokeId;
     }
+    
+
+    // const item = {
+    //     hidden: { y: 20, opacity: 0 },
+    //     visible: { y: 0, opacity: 1 },
+    // };
 
     return (
-        <div className={`${poke.types[0].type.name} shadow-2xl size-60 p-5 m-5 text-center !bg-opacity-30 rounded-lg relative border isolate overflow-hidden`}>
+        <motion.div
+            // variants={item}
+            // initial='hidden'
+            // animate='visible'
+            className={`${poke.types[0].type.name} shadow-2xl size-60 p-5 m-5 text-center !bg-opacity-30 rounded-lg relative border isolate overflow-hidden`}>
             <Image className="absolute z-10 drop-shadow-lg left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2" src={poke.sprites.other['official-artwork'].front_default} alt={poke.name} width={175} height={175}></Image>
             <h1 className="bg-opacity-40 font-black uppercase absolute shadow-xl z-20 left-0 top-0 m-3 px-3 p-1 bg-white rounded-full text-black">{poke.name}</h1>
             <h1 className="absolute text-9xl font-bold text-white opacity-20 z-0 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">{poke.id}</h1>
@@ -29,7 +40,7 @@ const Card = ({ poke }) => {
                     <h1>{(poke.weight / 10)} Kg</h1>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 
