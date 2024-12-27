@@ -2,15 +2,15 @@ import Image from "next/image";
 
 const Card = ({ poke }) => {
 
-    let pokeId = poke.id.toString();
+    // let pokeId = poke.id.toString();
 
-    if (pokeId.length === 1) {
-        pokeId = '000' + pokeId;
-    } else if (pokeId.length === 2) {
-        pokeId = '00' + pokeId;
-    } else if (pokeId.length === 3) {
-        pokeId = '0' + pokeId;
-    }
+    // if (pokeId.length === 1) {
+    //     pokeId = '000' + pokeId;
+    // } else if (pokeId.length === 2) {
+    //     pokeId = '00' + pokeId;
+    // } else if (pokeId.length === 3) {
+    //     pokeId = '0' + pokeId;
+    // }
 
     return (
         <div
