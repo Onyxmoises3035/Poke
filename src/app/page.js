@@ -16,16 +16,15 @@ const Pokedex = () => {
   }
 
   return (
-    <div className="w-full bg-fixed bg-gradient-to-bl from-red-400 to-gray-300">
+    <div className="w-full min-h-dvh bg-fixed bg-gradient-to-bl from-red-400 to-gray-300">
       {init ?
         <div className="flex w-full justify-center content-center">
           <Bar selGen={selGen} />
           <Gen gen={gen} />
         </div>
-        : 
+        :
         <Index selGen={selGen} />
       }
-
     </div>
   );
 }

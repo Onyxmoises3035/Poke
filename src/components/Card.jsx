@@ -2,16 +2,6 @@ import Image from "next/image";
 
 const Card = ({ poke }) => {
 
-    // let pokeId = poke.id.toString();
-
-    // if (pokeId.length === 1) {
-    //     pokeId = '000' + pokeId;
-    // } else if (pokeId.length === 2) {
-    //     pokeId = '00' + pokeId;
-    // } else if (pokeId.length === 3) {
-    //     pokeId = '0' + pokeId;
-    // }
-
     return (
         <div
             className={`${poke.types[0].type.name} shadow-2xl size-60 p-5 m-5 text-center !bg-opacity-30 rounded-lg relative border isolate overflow-hidden`}>
