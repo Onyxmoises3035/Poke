@@ -17,9 +17,9 @@ const limGen = [
 
 const url = 'https://pokeapi.co/api/v2/pokemon/';
 
-const data = async (lim) => {
+const data = async (init, fin) => {
     let pokemon = [];
-    for (let i = lim[0]; i <= lim[1]; i++) {
+    for (let i = init; i <= fin; i++) {
         const data = await axios.get(url + i).then(res => { return (res.data) });
         pokemon.push(data)
     }
@@ -31,15 +31,27 @@ const Gen = ({ gen }) => {
     const lim = limGen[gen - 1].lim;
     const [pokemon, setPokemon] = useState([])
     const [cont, setCont] = useState(20)
+    const [ultimoCargado, setUltimoCargado] = useState(0)
 
     useEffect(() => {
         setPokemon([]);
-        data(lim).then(res => setPokemon(res));
         setCont(20);
+        const inicio = lim[0];
+        const final = Math.min(inicio + 19, lim[1]);
+        setUltimoCargado(final);
+        data(inicio, final).then(res => setPokemon(res));
     }, [gen])
 
     const p = () => {
-        setCont(cont + 20);
+        const inicio = lim[0] + cont;
+        const final = Math.min(inicio + 19, lim[1]);
+        if (inicio <= lim[1]) {
+            data(inicio, final).then(res => {
+                setPokemon(prev => [...prev, ...res]);
+                setCont(cont + 20);
+                setUltimoCargado(final);
+            });
+        }
     }
 
     return (
@@ -51,8 +63,9 @@ const Gen = ({ gen }) => {
                             <Card key={poke.id} poke={poke} />
                         ))}
                     </div>
-
-                    <button className="p-5 m-5" onClick={p}>MAS</button>
+                    {ultimoCargado < lim[1] &&
+                        <button className="p-5 m-5" onClick={p}>MAS</button>
+                    }
                 </div>
                 :
                 <div className="flex min-h-dvh items-center">
