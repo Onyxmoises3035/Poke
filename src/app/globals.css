@@ -21,75 +21,75 @@ body {
 }
 
 .normal {
-  @apply bg-gray-500
+  background-color: #9fa19f;
 }
 
 .fighting {
-  @apply bg-orange-500
+  background-color: #ff8000;
 }
 
 .flying {
-  @apply bg-sky-500
+  background-color: #81b9ef;
 }
 
 .poison {
-  @apply bg-purple-500
+  background-color: #8f41cb;
 }
 
 .ground {
-  @apply bg-amber-900
+  background-color: #915121;
 }
 
 .rock {
-  @apply bg-orange-300
+  background-color: #afa981;
 }
 
 .bug {
-  @apply bg-lime-600
+  background-color: #91a119;
 }
 
 .ghost {
-  @apply bg-purple-900
+  background-color: #704170;
 }
 
 .steel {
-  @apply bg-slate-600
+  background-color: #60a1b8;
 }
 
 .fire {
-  @apply bg-red-700
+  background-color: #e62829;
 }
 
 .water {
-  @apply bg-blue-500
+  background-color: #2980ef;
 }
 
 .grass {
-  @apply bg-green-600
+  background-color: #3fa129;
 }
 
 .electric {
-  @apply bg-yellow-400
+  background-color: #fac000;
 }
 
 .psychic {
-  @apply bg-pink-400
+  background-color: #ef4179;
 }
 
 .ice {
-  @apply bg-blue-300
+  background-color: #3fd8ff;
 }
 
 .dragon {
-  @apply bg-indigo-600
+  background-color: #5061e1;
 }
 
 .dark {
-  @apply bg-stone-700
+  background-color: #50413f;
 }
 
 .fairy {
-  @apply bg-pink-300
+  background-color: #ef71ef;
 }
 
 .stellar {
@@ -100,6 +100,24 @@ body {
   @apply bg-white
 }
 
-.genButton{
+.genButton {
   @apply m-1 bg-slate-600 rounded-full p-2 text-white
+}
+
+.textShadow {
+  text-shadow: 2px 2px 2px #000000;
+  color: #ffffff;
+}
+
+.pngSahdow {
+  filter: drop-shadow(5px 5px 10px #000000);
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
 }
