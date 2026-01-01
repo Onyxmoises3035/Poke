@@ -1,10 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --fire: #e62829;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -13,6 +12,10 @@
     --foreground: #ededed;
   }
 } */
+
+@theme static{
+  --color-fire: var(--fire)
+}
 
 body {
   color: var(--foreground);
@@ -120,4 +123,98 @@ body {
 
 .no-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari and Opera */
+}
+
+.bg-diagonal-three-colors{
+  background-image: linear-gradient(300deg, #f97316, #f97316 40%, #ea580c 0, #ea580c 50%, #ffedd5 0, #ffedd5);
+}
+
+.columna_4{
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.columna_3{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.columna_2{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.columna_1{
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.marquee-text {
+  animation: marquee 20s linear infinite;
+  /* Ajusta la duración (20s) según necesites */
+  white-space: nowrap;
+}
+
+.Kanto {
+  background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);
+  color: #FFDE00; /* Amarillo Pokémon */
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Johto - Azul Pokédex */
+.Johto {
+  background: linear-gradient(135deg, #4A90E2 0%, #2E75B6 100%);
+  color: #F8E71C;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* Hoenn - Verde Esmeralda */
+.Hoenn {
+  background: linear-gradient(135deg, #50E3C2 0%, #1ABC9C 100%);
+  color: #2C3E50;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.7);
+}
+
+/* Sinnoh - Azul Diamante/Rosa Perla */
+.Sinnoh {
+  background: linear-gradient(135deg, #3498DB 0%, #9B59B6 100%);
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Unova - Negro/Blanco */
+.Unova {
+  background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+  color: #ECF0F1;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Kalos - Rosa/Azul */
+.Kalos {
+  background: linear-gradient(135deg, #FF6B8B 0%, #4ECDC4 100%);
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Alola - Naranja/Amarillo Sol */
+.Alola {
+  background: linear-gradient(135deg, #FFA726 0%, #FFEE58 100%);
+  color: #5D4037;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.7);
+}
+
+/* Galar - Rojo Inglés/Azul */
+.Galar {
+  background: linear-gradient(135deg, #E53935 0%, #1E88E5 100%);
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Paldea - Naranja/Verde Fruta */
+.Paldea {
+  background: linear-gradient(135deg, #FF9800 0%, #4CAF50 100%);
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }

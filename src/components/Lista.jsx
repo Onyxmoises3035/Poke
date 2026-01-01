@@ -1,70 +1,97 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-
-const lstGen = [
-    { id: 1, inicio: 0, totalPoke: 151 },
-    { id: 2, inicio: 151, totalPoke: 100 },
-    { id: 3, inicio: 251, totalPoke: 135 },
-    { id: 4, inicio: 386, totalPoke: 107 },
-    { id: 5, inicio: 493, totalPoke: 156 },
-    { id: 6, inicio: 649, totalPoke: 72 },
-    { id: 7, inicio: 721, totalPoke: 88 },
-    { id: 8, inicio: 809, totalPoke: 96 },
-    { id: 9, inicio: 905, totalPoke: 120 },
-]
-
-const url = 'https://pokeapi.co/api/v2/pokemon/';
-
-const data = async (inicio, total) => {
-    const set = `?limit=${total}&offset=${inicio}`;
-    console.log(url + set);
-    const data = await axios.get(url + set).then(res => { return (res.data) });
-    return data;
-}
+import { Autocomplete, TextField } from "@mui/material";
+import { useEffect, useState, useRef } from "react";
+import { listPokemon } from "@/app/api/pokeApi";
+import Image from "next/image";
 
 const Lista = ({ gen, selPoke }) => {
 
     const [pokemon, setPokemon] = useState([]);
     const [pokeSel, setPokeSel] = useState();
+    const lista = useRef(null);
 
     useEffect(() => {
-        const inicio = lstGen[gen - 1].inicio;
-        const total = lstGen[gen - 1].totalPoke;
-        data(inicio, total).then(res => setPokemon(res.results));
+        const inicio = 0;
+        const total = 1025;
+        listPokemon(total, inicio).then(res => { setPokemon(res) })
     }, [gen])
+
+    const scroll = (Id) => {
+        if (!lista.current) return;
+
+        const child = document.getElementById(Id);
+
+        if (!child) return;
+
+        lista.current.scrollTo({
+            top: child.offsetTop - lista.current.offsetTop - 10,
+            behavior: 'smooth'
+        });
+    };
 
     const setId = (id) => {
         selPoke(id)
         setPokeSel(id)
+        scroll(id)
     }
 
     return (
         <div className="flex flex-col items-end h-full w-1/4 ml-5">
-            <div className="w-full overflow-y-auto overflow-x-hidden bg-white bg-opacity-40 m-5 px-5 py-3 rounded-lg no-scrollbar">
+            <div className="w-full m-5 mb-0 py-3 px-5 bg-white/40 rounded-lg">
+                <Autocomplete
+                    options={pokemon}
+                    groupBy={(option) => option.generation}
+                    getOptionLabel={(option) => `${option.id} ${option.name}`}
+                    renderInput={(params) => <TextField {...params} label="Buscar" />}
+                    onChange={(e, value) => {
+                        if (value != null) {
+                            setId(value.id);
+                        }
+                    }}
+                    renderGroup={(params) => {
+                        const samplePokemon = pokemon.find(p => p.generation === params.group);
+                        const className = samplePokemon?.generationColor || 'default-generation';
+                        const icon = samplePokemon?.generationIcon || 'default-generation';
+
+                        return (
+                            <li key={params.key}>
+                                <div className={`${className} flex rounded-4xl p-2 justify-between`}>
+                                    <Image src={icon} alt="icon" width={50} height={50}/>
+                                    {params.group}
+                                </div>
+                                <ul>{params.children}</ul>
+                            </li>
+                        );
+                    }}
+                />
+            </div>
+
+            <div ref={lista} className="w-full overflow-y-auto overflow-x-hidden bg-white/40 m-5 mt-1 px-5 py-3 rounded-lg no-scrollbar">
                 {pokemon.map(poke => (
                     <div className={`group rounded-full m-1 px-1 w-full cursor-pointer justify-between flex items-center 
-                                ${(poke.url.split('/').filter(Boolean).pop() === pokeSel) ? 'bg-diagonal-three-colors-black' : 'hover:bg-diagonal-three-colors-black'}`}
-                        onClick={() => setId(poke.url.split('/').filter(Boolean).pop())}
-                        key={poke.url.split('/').filter(Boolean).pop()}>
+                                ${(poke.id === pokeSel) ? 'bg-[linear-gradient(60deg,#f97316_0%,#f97316_40%,#ea580c_40%,#ea580c_50%,#000000_50%,#000000_100%)]' : 'hover:bg-[linear-gradient(60deg,#f97316_0%,#f97316_40%,#ea580c_40%,#ea580c_50%,#000000_50%,#000000_100%)]'}`}
+                        onClick={() => setId(poke.id)}
+                        key={poke.id}
+                        id={poke.id}>
 
-                        <div className="">
-                            <h1 className={`text-3xl ml-1 truncate ${(poke.url.split('/').filter(Boolean).pop() === pokeSel) ? 'text-white' : 'group-hover:text-white'}`}>
-                                N.º {poke.url.split('/').filter(Boolean).pop()}
+                        <div className="flex justify-center items-center">
+                            <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${poke.id}.png`} alt="icon" width={60} height={60}/>
+                            <h1 className={`text-3xl ml-1 truncate flex-1 ${(poke.id === pokeSel) ? 'text-white' : 'group-hover:text-white'}`}>
+                                N.º {poke.id}
                             </h1>
                         </div>
 
-                        <div className="text-center text-black mr-2 overflow-hidden relative">
-                            <h1 className={`text-3xl whitespace-nowrap ${(poke.url.split('/').filter(Boolean).pop() === pokeSel) ? 'text-white' : 'group-hover:text-white'} ${poke.name.length > 15 ? 'animate-marquee' : ''}`}>
-                                {poke.name.charAt(0).toUpperCase() + poke.name.slice(1)}
+                        <div className="text-center text-black mr-2 overflow-hidden relative w-1/2">
+                            <h1 className={`text-3xl whitespace-nowrap ${(poke.id === pokeSel) ? 'text-white' : 'group-hover:text-white'} ${poke.name.length > 15 ? 'marquee-text' : ''}`}>
+                                {poke.name}
                             </h1>
                         </div>
 
-                        <div className="mr-1">
-                            <svg className={`${(poke.url.split('/').filter(Boolean).pop() === pokeSel) ? 'fill-white' : 'group-hover:fill-white'}`} xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 32 32">
+                        {/* <div className="mr-1">
+                            <svg className={`${(poke.id === pokeSel) ? 'fill-white' : 'group-hover:fill-white'}`} xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 32 32">
                                 <path d="M20.9 17a5 5 0 0 1-9.8 0H2.051a13.984 13.984 0 0 0 27.9 0zm-9.8-2a5 5 0 0 1 9.8 0h9.05a13.984 13.984 0 0 0-27.9 0z" className="svgShape color000000-1 selectable" />
                                 <circle cx="16" cy="16" r="3" className="svgShape color000000-2 selectable" />
                             </svg>
-                        </div>
+                        </div> */}
                     </div>
                 ))}
             </div>

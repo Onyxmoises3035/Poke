@@ -12,6 +12,7 @@ const Index = ({ selGen }) => {
         { id: 7, title: 'Alola', image: '/icons/G7.svg', banner: '/banners/G7.png', numero: 88, bg: 'to-orange-600' },
         { id: 8, title: 'Galar', image: '/icons/G8.svg', banner: '/banners/G8.png', numero: 96, bg: 'to-cyan-600' },
         { id: 9, title: 'Paldea', image: '/icons/G9.svg', banner: '/banners/G9.png', numero: 120, bg: 'to-pink-600' },
+        { id: 10, title: 'Todos', image: '/icons/G1.svg', banner: '/banners/G1.png', numero: 151, bg: 'to-red-600' },
     ]
 
     return (
