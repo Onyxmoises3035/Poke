@@ -34,6 +34,11 @@ const Lista = ({ gen, selPoke }) => {
         scroll(id)
     }
 
+    const setIdList = (id) => {
+        selPoke(id)
+        setPokeSel(id)
+    }
+
     return (
         <div className="flex flex-col items-end h-full w-1/4 ml-5">
             <div className="w-full m-5 mb-0 py-3 px-5 bg-white/40 rounded-lg">
@@ -69,7 +74,7 @@ const Lista = ({ gen, selPoke }) => {
                 {pokemon.map(poke => (
                     <div className={`group rounded-full m-1 px-1 w-full cursor-pointer justify-between flex items-center 
                                 ${(poke.id === pokeSel) ? 'bg-[linear-gradient(60deg,#f97316_0%,#f97316_40%,#ea580c_40%,#ea580c_50%,#000000_50%,#000000_100%)]' : 'hover:bg-[linear-gradient(60deg,#f97316_0%,#f97316_40%,#ea580c_40%,#ea580c_50%,#000000_50%,#000000_100%)]'}`}
-                        onClick={() => setId(poke.id)}
+                        onClick={() => setIdList(poke.id)}
                         key={poke.id}
                         id={poke.id}>
 
