@@ -40,7 +40,7 @@ const Variants = ({ listVari, color }) => {
     }
 
     return (
-        <div>
+        <div className="py-2">
             <IconButton onClick={openModalVari} className="bg-linear-to-tr from-fuchsia-500 to-cyan-500 hover:opacity-85 transition-all duration-500">
                 <HiveIcon fontSize="large" className="text-white shadow-2xl" />
             </IconButton>

@@ -7,6 +7,8 @@ import Pokeball from "./Pokeball";
 import Variants from "./Variants";
 import Stats from "./Stats";
 import {pokemon, species} from "@/app/api/pokeApi";
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import { IconButton } from "@mui/material";
 
 const Dex = ({ gen }) => {
 
@@ -15,6 +17,7 @@ const Dex = ({ gen }) => {
     const [descrip, setDescrip] = useState();
     const [variante, setVariante] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [shiny, setShiny] = useState(false)
 
     useEffect(() => {
         if (poke != null && poke != 0) {
@@ -40,6 +43,7 @@ const Dex = ({ gen }) => {
             setVariante([])
             setDescrip('');
         }
+        setShiny(false);
     }, [poke])
 
     const selPoke = (id) => setPoke(id)
@@ -56,7 +60,16 @@ const Dex = ({ gen }) => {
                     <div className="flex flex-col-reverse size-full relative">
                         <div className={`${infoPoke.color} absolute size-full rounded-lg`}></div>
 
-                        <Image className="absolute z-10 drop-shadow-lg left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2" src={infoPoke.sprite} alt={infoPoke.name} width={450} height={450}></Image>
+                        {shiny? 
+                            <div className="absolute z-10 drop-shadow-lg left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
+                                <div className="absolute z-20 right-0">
+                                    <AutoAwesomeIcon fontSize="large" className="text-white shadow-2xl"/>
+                                </div>
+                                <Image src={infoPoke.sprite_shiny} alt={infoPoke.name} width={450} height={450}></Image>
+                            </div>
+                        :
+                            <Image className="absolute z-10 drop-shadow-lg left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2" src={infoPoke.sprite} alt={infoPoke.name} width={450} height={450}></Image>
+                        }
 
                         <h1 className="absolute z-20 text-4xl right-0 top-0 m-10 drop-shadow-lg">{infoPoke.id}</h1>
 
@@ -75,23 +88,43 @@ const Dex = ({ gen }) => {
 
                                 <div className="flex">
                                     {infoPoke.types.map(type => (
-                                        <h1 key={type.name} className={`${type.name} text-4xl text-white rounded-full px-5 p-3 shadow-lg uppercase flex`}>
+                                        <div key={type.name} className={`${type.name} text-4xl text-white rounded-full px-5 p-3 shadow-lg uppercase flex`}>
                                             <Image className="mr-2" src={`/icons/types/${type.name}.svg`} width={30} height={30} alt="iconType" />
-                                            {type.name}
-                                        </h1>
+                                            <h1 className="pr-5">{type.name}</h1>
+                                        </div>
                                     ))}
                                 </div>
+                            </div>
+                            
+                            <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
+                                {shiny?
+                                    <div className="flex">
+                                        <Image src={infoPoke.mini_spite_FrontShiny} width={130} height={130} alt="spriteback"/>
+                                        <Image src={infoPoke.mini_spite_BackShiny} width={130} height={130} alt="spriteback"/>
+                                    </div>
+                                :
+                                    <div className="flex">
+                                        <Image src={infoPoke.mini_spite_Front} width={130} height={130} alt="spriteback"/>
+                                        <Image src={infoPoke.mini_spite_Back} width={130} height={130} alt="spriteback"/>
+                                    </div>
+                                }
+                                <audio controls src={infoPoke.audio}></audio>
                             </div>
 
                             <div className="absolute w-1/3 m-3 right-0">
                                 <Stats stats={infoPoke.stats}/>
                             </div>
+                            
+                            <div className="absolute right-0 top-0 z-20 m-2">
+                                <IconButton onClick={() => setShiny(!shiny)} className="bg-linear-to-tr from-amber-200 to-yellow-600 hover:opacity-85 transition-all duration-500">
+                                    <AutoAwesomeIcon fontSize="large" className="text-white shadow-2xl" />
+                                </IconButton> 
 
-                            {variante.length != 0 &&
-                                <div className="absolute right-0 top-0 z-20 m-2">
+                                {variante.length != 0 &&
                                     <Variants listVari={variante} color={infoPoke.color} />
-                                </div>
-                            }
+                                }
+                            </div>
+
                         </div>
                     </div>
                 }

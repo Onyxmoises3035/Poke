@@ -27,12 +27,20 @@ const listPokemon = async (total, inicio) => {
 
 const pokemon = async (id) => {
     const data = await axios.get(pokemonUrl + id).then(res => { return (res.data) });
+    console.log(data);
+    
 
     return {
         id: data.id,
         name: data.name,
         color: data.types[0].type.name,
         sprite: data.sprites.other['official-artwork'].front_default,
+        sprite_shiny: data.sprites.other['official-artwork'].front_shiny,
+        mini_spite_Back: data.sprites.back_default,
+        mini_spite_BackShiny: data.sprites.back_shiny,
+        mini_spite_Front: data.sprites.front_default,
+        mini_spite_FrontShiny: data.sprites.front_shiny,
+        audio: data.cries.latest,
         height: (data.height / 10),
         weight: (data.weight / 10),
         types: data.types.map(type => ({ name: type.type.name })),
